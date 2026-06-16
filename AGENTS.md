@@ -12,17 +12,18 @@ A collection of **Anthropic-format skills** for academic research and writing, s
 - `sota` — produce a structured state-of-the-art review organized by user-relevant dimensions (paradigms, techniques, evaluation methods, domains), output to `sota/`.
 - `audit-paper` — forensic audit of an academic document (thesis or paper); produces a narrative report (5–18 pages by level) plus a structured forensic assembly sibling.
 
-Status as of this commit:
+All five skills ship in this repo under `skills/`:
 
-| Skill | Status |
-|---|---|
-| `sota` | ✅ available under `skills/sota/` |
-| `audit-paper` | ⏳ in upstream Workspace, port pending |
-| `pull` | ⏳ port pending from upstream `pulling-sources` |
-| `ingest` | ⏳ port pending from upstream `ingest` command |
-| `distill` | ⏳ port pending from upstream `distill` skill |
+```
+skills/
+├── pull/          (pull-source pipeline via markitdown)
+├── ingest/        (sources → cross-linked wiki)
+├── distill/       (sources → atomic Zettel notes)
+├── sota/          (corpus → structured state-of-the-art review)
+└── audit-paper/   (academic document → narrative audit + forensic assembly)
+```
 
-The pending skills exist in functional form in the upstream maintainer's Workspace and will be ported to this public repo with vault-specific paths removed and defaults set to current-working-directory.
+Each is self-contained, ported with vault-specific paths removed and defaults set to the current working directory.
 
 ## How to install the skills (the action items for an agent)
 

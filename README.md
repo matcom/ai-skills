@@ -16,13 +16,13 @@ Cada uno de estos pasos corresponde a un *skill* en este repositorio.
 
 ## Los skills
 
-| Skill | Función | Estado |
-|---|---|---|
-| **`sota`** | Genera un estado del arte estructurado por dimensiones a partir de un corpus de fuentes / páginas de wiki ya recolectadas. Salida: un reporte Markdown con introducción, una sección por dimensión, matriz comparativa y bibliografía con citas Pandoc-friendly (`^[N](#ref-N)^`). | ✅ Disponible |
-| **`audit-paper`** | Auditoría forense de un documento académico (tesis de diploma, maestría, doctorado o paper). Produce un reporte narrativo (5–18 páginas según nivel) más una asamblea forense estructurada como artefacto hermano. | ⏳ Próximamente |
-| **`pull`** | Bajar webpages, PDFs, papers, blogs o cualquier documento externo a `./sources/` como markdown con frontmatter de procedencia. Usa `markitdown` por debajo. | ⏳ Próximamente |
-| **`ingest`** | Compila las fuentes de `./sources/` en una wiki cross-linked bajo `./wiki/`. Genera resúmenes por fuente y páginas de síntesis por concepto/método/debate. | ⏳ Próximamente |
-| **`distill`** | Extrae claims atómicos de un corpus para notas estilo Zettelkasten. Salida a `./notes/atomic/`. | ⏳ Próximamente |
+| Skill | Función |
+|---|---|
+| **`pull`** | Bajar webpages, PDFs, papers, blogs o cualquier documento externo a `./sources/` como markdown con frontmatter de procedencia. Usa `markitdown` por debajo. |
+| **`ingest`** | Compila las fuentes de `./sources/` en una wiki cross-linked bajo `./wiki/`. Genera resúmenes por fuente y páginas de síntesis por concepto/método/debate. |
+| **`distill`** | Extrae claims atómicos de un corpus para notas estilo Zettelkasten. Salida a `./notes/atomic/`. |
+| **`sota`** | Genera un estado del arte estructurado por dimensiones a partir de un corpus de fuentes / páginas de wiki ya recolectadas. Salida: un reporte Markdown con introducción, una sección por dimensión, matriz comparativa y bibliografía con citas Pandoc-friendly (`^[N](#ref-N)^`). |
+| **`audit-paper`** | Auditoría forense de un documento académico (tesis de diploma, maestría, doctorado o paper). Produce un reporte narrativo (5–18 páginas según nivel) más una asamblea forense estructurada como artefacto hermano. |
 
 El flujo típico para un capítulo de Estado del Arte es:
 
