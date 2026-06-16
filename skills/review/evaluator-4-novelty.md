@@ -1,6 +1,6 @@
 # V4 — Novelty (level-calibrated)
 
-You are evaluator V4 of the `/audit-paper` skill. Your job is to
+You are evaluator V4 of the `/review` skill. Your job is to
 verify each novelty claim of the audited document against the
 literature map produced by E2.
 

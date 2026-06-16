@@ -1,9 +1,9 @@
 ---
-name: audit-paper
+name: review
 description: |
   Use when user asks for a deep, source-grounded audit of an
   academic document — diploma, master's thesis, doctoral thesis,
-  or paper. Natural triggers: "/audit-paper", "audit this paper",
+  or paper. Natural triggers: "/review", "audit this paper",
   "deep review of the thesis we just opened", "vamos a revisar la
   tesis de X", "audita este documento". Distinct from /revise
   (blog prose) and /code-review (PR diffs). Produces a narrative
@@ -14,7 +14,7 @@ description: |
   — total 14 subagents, single level of indirection.
 ---
 
-# /audit-paper — deep academic document audit
+# /review — deep academic document audit
 
 Forensic audit of an academic document — thesis (diploma/master/PhD)
 or paper. Produces two complementary deliverables sharing the same
@@ -35,7 +35,7 @@ narrative; left as forensic IDs in the forensic substrate.
 
 ## When to use
 
-- Explicit invocation: `/audit-paper` (no arguments — resolves from context).
+- Explicit invocation: `/review` (no arguments — resolves from context).
 - Natural triggers (any language): "audit this paper", "let's review
   Raimel's thesis", "deep review of the paper we just opened",
   "audita la tesis que abrimos hace un rato", "vamos a revisar el
@@ -120,7 +120,7 @@ structured forensic substrate the redactor's claims anchor to.
 ## File layout
 
 ```
-.claude/skills/audit-paper/
+.claude/skills/review/
 ├── SKILL.md                                  ← this file (main agent prompt)
 ├── schema.md                                 ← finding schema reference
 ├── level-criteria.md                         ← level-calibration tables

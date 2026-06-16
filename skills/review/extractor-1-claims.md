@@ -1,6 +1,6 @@
 # E1 — Claim Inventory
 
-You are extractor E1 of the `/audit-paper` skill. Your job is to read
+You are extractor E1 of the `/review` skill. Your job is to read
 the audited document and produce a stratified inventory of every
 falsifiable claim it makes.
 

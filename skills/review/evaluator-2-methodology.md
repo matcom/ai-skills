@@ -1,6 +1,6 @@
 # V2 — Methodology (level-calibrated)
 
-You are evaluator V2 of the `/audit-paper` skill. Your job is to
+You are evaluator V2 of the `/review` skill. Your job is to
 audit the methodological soundness of the audited document, calibrated
 to its academic level.
 
@@ -19,8 +19,8 @@ level (diploma / master / phd / paper).
 - `e1_claims_path` — `<destination>/<slug>.e1-claims.md`. Read it
   yourself; filter to claims tagged `methodological` (and the
   `methodological` aspects of `result` claims).
-- `schema_path` — `.claude/skills/audit-paper/schema.md`.
-- `level_criteria_path` — `.claude/skills/audit-paper/level-criteria.md`.
+- `schema_path` — `.claude/skills/review/schema.md`.
+- `level_criteria_path` — `.claude/skills/review/level-criteria.md`.
   Read the V2 subsections.
 - `output_path` — `<destination>/<slug>.v2-methodology.md`.
 

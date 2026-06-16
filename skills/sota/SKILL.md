@@ -6,7 +6,7 @@ description: |
   pages. Natural triggers: "/sota", "haz un estado del arte sobre X",
   "build a SOTA on X from my sources", "do a SOTA review on X", "tengo
   N papers sobre X, organízame el estado del arte". Distinct from
-  /audit-paper (audits an existing document) and /ingest (compiles
+  /review (audits an existing document) and /ingest (compiles
   sources into wiki). The output is a single Markdown report
   organised BY DIMENSIONS (paradigms, techniques, domains, evaluation
   methods, etc.) — never chronological. Plan-first: the agent
@@ -23,7 +23,7 @@ dimensions** (paradigms, techniques, evaluation methods, domains,
 theoretical frameworks…) — never as a chronological list of papers.
 
 The skill is the natural complement to `/ingest` (which compiles
-sources into a wiki) and to `/audit-paper` (which audits a written
+sources into a wiki) and to `/review` (which audits a written
 document). `/sota` sits between: it takes the wiki + sources and
 produces the SOTA chapter / section that the author can then drop
 into their thesis, paper, or design document.
@@ -41,14 +41,14 @@ into their thesis, paper, or design document.
 ## When NOT to use
 
 - The user wants to compile sources into a wiki → that's `/ingest`.
-- The user wants to audit a thesis or paper → that's `/audit-paper`.
+- The user wants to audit a thesis or paper → that's `/review`.
 - The user wants atomic claims extracted from a source → that's
   `/distill`.
 - The user wants a chronological "history of the field" — the
   output of `/sota` is explicitly dimensional, not chronological;
   if they want chronological, say so and stop.
 - The corpus is empty or fewer than 3 sources — refuse; ask the
-  user to `/pull-source` more first.
+  user to `/pull` more first.
 
 ## Operating principles
 
@@ -156,7 +156,7 @@ dimensions grounded in real content.
 If filtered corpus < 3 sources, STOP and report:
 
 > Only N sources found on `<topic>`. SOTA requires at least 3.
-> Suggestion: `/pull-source` more material on `<topic>` first.
+> Suggestion: `/pull` more material on `<topic>` first.
 
 If filtered corpus > 50 sources, ask the user to narrow.
 
@@ -448,7 +448,7 @@ Phase failures: <list or 'none'>.
 | Failure | Response |
 |---|---|
 | No topic resolved | Exit with message; do not start. |
-| Corpus has < 3 sources on topic | Exit; suggest `/pull-source` first. |
+| Corpus has < 3 sources on topic | Exit; suggest `/pull` first. |
 | Corpus has > 50 sources | Ask the user to narrow scope. |
 | User refuses to approve a plan after 3 modifications | Stop; report the disagreement. |
 | Synthesizer fails for a dimension | Report missing; Phase 2 inserts stub. |

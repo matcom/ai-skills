@@ -10,24 +10,24 @@ A collection of **Anthropic-format skills** for academic research and writing, s
 - `ingest` — compile pulled sources into a cross-linked wiki at `wiki/`.
 - `distill` — extract atomic claims (Zettelkasten-style) from sources into `notes/atomic/`.
 - `sota` — produce a structured state-of-the-art review organized by user-relevant dimensions (paradigms, techniques, evaluation methods, domains), output to `sota/`.
-- `audit-paper` — forensic audit of an academic document (thesis or paper); produces a narrative report (5–18 pages by level) plus a structured forensic assembly sibling.
+- `review` — forensic audit of an academic document (thesis or paper); produces a narrative report (5–18 pages by level) plus a structured forensic assembly sibling.
 
 All five skills ship in this repo under `skills/`:
 
 ```
 skills/
-├── pull/          (pull-source pipeline via markitdown)
+├── pull/          (source-pulling pipeline via markitdown)
 ├── ingest/        (sources → cross-linked wiki)
 ├── distill/       (sources → atomic Zettel notes)
 ├── sota/          (corpus → structured state-of-the-art review)
-└── audit-paper/   (academic document → narrative audit + forensic assembly)
+└── review/        (academic document → narrative audit + forensic assembly)
 ```
 
 Each is self-contained, ported with vault-specific paths removed and defaults set to the current working directory.
 
 ## How to install the skills (the action items for an agent)
 
-The natural unit of action when an agent reads this repo is: **copy each subdirectory of `skills/` into the agent's skills directory**. Then the agent can invoke them by name (`/sota`, `/audit-paper`, etc.).
+The natural unit of action when an agent reads this repo is: **copy each subdirectory of `skills/` into the agent's skills directory**. Then the agent can invoke them by name (`/sota`, `/review`, etc.).
 
 ### Standard paths
 
@@ -65,7 +65,7 @@ If shell execution is not available or the agent prefers to act file-by-file:
 ```bash
 mkdir -p ~/.claude/skills/
 cp -r skills/sota         ~/.claude/skills/
-cp -r skills/audit-paper  ~/.claude/skills/      # when available
+cp -r skills/review       ~/.claude/skills/
 # ... etc.
 ```
 
@@ -103,7 +103,7 @@ Default output convention (relative to the agent's current working directory):
 <cwd>/wiki/           ← cross-linked synthesis (ingest writes here)
 <cwd>/notes/atomic/   ← atomic-claim notes (distill writes here)
 <cwd>/sota/           ← state-of-the-art reports (sota writes here)
-<cwd>/reviews/        ← document audits (audit-paper writes here)
+<cwd>/reviews/        ← document audits (review writes here)
 ```
 
 Every skill resolves its corpus/output paths in this order:

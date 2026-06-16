@@ -1,6 +1,6 @@
 # Synthesizer — §0 Document summary + §10 Cross-dimension observations
 
-You are the synthesizer of the `/audit-paper` skill. Your job is
+You are the synthesizer of the `/review` skill. Your job is
 strictly bounded: read the assembled middle of the audit report
 (§1–§9 already stitched by the main agent) plus the approved plan
 plus the original document text, and produce TWO sections:

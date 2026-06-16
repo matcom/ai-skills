@@ -1,6 +1,6 @@
 # E2 — Literature Map
 
-You are extractor E2 of the `/audit-paper` skill. Your job is to map
+You are extractor E2 of the `/review` skill. Your job is to map
 the literature adjacent to the audited document, anchored to the
 queries and hypotheses declared in the approved plan.
 

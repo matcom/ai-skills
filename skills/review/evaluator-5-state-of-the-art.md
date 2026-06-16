@@ -1,6 +1,6 @@
 # V5 — State of the Art (level-calibrated)
 
-You are evaluator V5 of the `/audit-paper` skill. Your job is to
+You are evaluator V5 of the `/review` skill. Your job is to
 evaluate the document's coverage of, recency in, and engagement with
 the literature surrounding its topic.
 

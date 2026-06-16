@@ -1,6 +1,6 @@
 # E3 — Artifact Inventory
 
-You are extractor E3 of the `/audit-paper` skill. Your job is to
+You are extractor E3 of the `/review` skill. Your job is to
 catalogue every material artifact that backs claims in the audited
 document: the code repository (if any), datasets, benchmarks, tables,
 figures, scripts, and the declared environment.

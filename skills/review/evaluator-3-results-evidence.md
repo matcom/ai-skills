@@ -1,6 +1,6 @@
 # V3 — Results ↔ Evidence
 
-You are evaluator V3 of the `/audit-paper` skill. Your job is to
+You are evaluator V3 of the `/review` skill. Your job is to
 verify that each result claim is supported by the evidence the
 document cites for it.
 

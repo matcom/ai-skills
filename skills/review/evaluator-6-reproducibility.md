@@ -1,6 +1,6 @@
 # V6 — Reproducibility (level-calibrated)
 
-You are evaluator V6 of the `/audit-paper` skill. Your job is to
+You are evaluator V6 of the `/review` skill. Your job is to
 assess whether the document's claims can be reproduced from the
 materials provided (code, data, protocol).
 

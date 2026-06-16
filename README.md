@@ -22,12 +22,12 @@ Cada uno de estos pasos corresponde a un *skill* en este repositorio.
 | **`ingest`** | Compila las fuentes de `./sources/` en una wiki cross-linked bajo `./wiki/`. Genera resúmenes por fuente y páginas de síntesis por concepto/método/debate. |
 | **`distill`** | Extrae claims atómicos de un corpus para notas estilo Zettelkasten. Salida a `./notes/atomic/`. |
 | **`sota`** | Genera un estado del arte estructurado por dimensiones a partir de un corpus de fuentes / páginas de wiki ya recolectadas. Salida: un reporte Markdown con introducción, una sección por dimensión, matriz comparativa y bibliografía con citas Pandoc-friendly (`^[N](#ref-N)^`). |
-| **`audit-paper`** | Auditoría forense de un documento académico (tesis de diploma, maestría, doctorado o paper). Produce un reporte narrativo (5–18 páginas según nivel) más una asamblea forense estructurada como artefacto hermano. |
+| **`review`** | Auditoría forense de un documento académico (tesis de diploma, maestría, doctorado o paper). Produce un reporte narrativo (5–18 páginas según nivel) más una asamblea forense estructurada como artefacto hermano. |
 
 El flujo típico para un capítulo de Estado del Arte es:
 
 ```
-pull (n veces) → ingest → sota → escribir el capítulo → audit-paper
+pull (n veces) → ingest → sota → escribir el capítulo → review
 ```
 
 ## Instalación
@@ -63,9 +63,9 @@ Supongamos que querés escribir el capítulo de Estado del Arte sobre *razonamie
 mkdir -p ~/tesis-sota-razonamiento && cd ~/tesis-sota-razonamiento
 
 # 2. Bajar fuentes (una por una, en la sesión interactiva con el agente)
-/pull-source https://arxiv.org/abs/2201.11903    # CoT (Wei 2022)
-/pull-source https://arxiv.org/abs/2305.10601    # Tree of Thoughts
-/pull-source https://arxiv.org/abs/2303.11366    # Reflexion
+/pull https://arxiv.org/abs/2201.11903    # CoT (Wei 2022)
+/pull https://arxiv.org/abs/2305.10601    # Tree of Thoughts
+/pull https://arxiv.org/abs/2303.11366    # Reflexion
 # ... 20-30 papers más
 
 # 3. Sintetizar en wiki
@@ -78,7 +78,7 @@ mkdir -p ~/tesis-sota-razonamiento && cd ~/tesis-sota-razonamiento
 #    (el SOTA es input para tu escritura, no tu escritura final)
 
 # 6. Auditar el capítulo escrito
-/audit-paper estado-del-arte.md
+/review estado-del-arte.md
 ```
 
 Cada skill es interactivo: te propone un plan, lo aprobás o modificás, y entonces ejecuta. No hace nada irreversible sin tu visto bueno.
@@ -93,7 +93,7 @@ mi-proyecto/
 ├── wiki/           # síntesis cross-linked construida por `ingest`
 ├── notes/atomic/   # notas atómicas extraídas por `distill`
 ├── sota/           # reportes de estado del arte generados por `sota`
-└── reviews/        # auditorías producidas por `audit-paper`
+└── reviews/        # auditorías producidas por `review`
 ```
 
 Ningún skill depende de Obsidian, de un *vault* específico, de Notion ni de ningún otro sistema externo. Todo vive en carpetas planas con archivos Markdown.

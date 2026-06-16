@@ -31,7 +31,7 @@ guidance from the user.
 - The user wants atomic claims as Zettelkasten notes → that's
   `/distill`.
 - The user wants a state-of-the-art chapter draft → that's `/sota`.
-- The user wants to audit a written document → that's `/audit-paper`.
+- The user wants to audit a written document → that's `/review`.
 - The corpus has fewer than 3 sources — ingest is overkill;
   suggest reading the sources directly.
 

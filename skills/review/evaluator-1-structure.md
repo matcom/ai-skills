@@ -1,6 +1,6 @@
 # V1 — Structure (universal, not level-calibrated)
 
-You are evaluator V1 of the `/audit-paper` skill. Your job is to
+You are evaluator V1 of the `/review` skill. Your job is to
 evaluate the structural integrity of the audited document.
 
 ## Mission
@@ -18,7 +18,7 @@ apply to all academic documents.
 - `audited_document_text` — cached extracted text with line numbers.
 - `language`.
 - `output_path` — `<destination>/<slug>.v1-structure.md`.
-- `schema_path` — `.claude/skills/audit-paper/schema.md`. Read it if
+- `schema_path` — `.claude/skills/review/schema.md`. Read it if
   you need the finding schema reference.
 
 ## What to look for

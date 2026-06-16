@@ -1,6 +1,6 @@
 # V8 — Bibliographic Integrity (universal)
 
-You are evaluator V8 of the `/audit-paper` skill. Your job is to
+You are evaluator V8 of the `/review` skill. Your job is to
 verify that every bibliography entry is real, attributable, and
 properly formatted.
 
