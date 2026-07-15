@@ -1,135 +1,227 @@
 ---
 name: design-doc
 description: |
-  Create or update the authoritative design document for a repo, umbrella
-  project, or vault area. Idempotent — creates from scratch if missing,
-  updates and improves if it exists. Invoke after a release or major
-  implementation cycle, or when onboarding needs a current architectural view.
-  Trigger phrases: "update the design doc", "sync the design doc", "design-doc",
-  "update architecture doc", "compile the design".
+  Use when a repo, project, or area has accumulated several design/spec/plan
+  docs and needs ONE coherent, top-down design document that synthesizes them
+  and routes a reader to the right spec for depth. Create or update after a
+  release or major implementation cycle, when onboarding needs a current
+  architectural view, or when it is unclear which spec is current versus
+  superseded. Trigger phrases: "update the design doc", "sync the design doc",
+  "design-doc", "compile the design", "give me a top-down view of the design".
 ---
 
 # design-doc
 
-Compile the authoritative design document for the current scope. The design
-doc is the living truth of what the system IS — not what was planned, not
-what was once intended, but what exists and must be true today.
+Compile ONE coherent, top-down design document for the current scope. It is the
+single view a reader consults to understand the *complete design as it stands
+today* — modules, the general design decisions, how the pieces interact, the
+data model, the invariants — and to find *where* each part is specified in
+depth.
 
 ## Core principle
 
-Specs and plans are inputs to development. The design doc is the output.
-It is updated AFTER implementation is stable (post code-review, at
-release/version boundary), never before. This keeps it accurate rather
-than aspirational.
+**The design doc is a coherent top-down synthesis, not a history.** The record
+of how the system got here — each feature, each point-in-time decision, in
+chronological order — lives in the individual spec/plan docs. The design doc is
+the opposite: a timeless, coherent whole that **supersedes and reorganizes**
+those specs into one design, and **cites the specific spec** at each point where
+a reader needs the depth behind that piece of the design.
 
-## What belongs in a design doc
+Reading order is **design coherence, never chronology.** You organize by how the
+design fits together (system → modules → interactions → decisions → data →
+invariants), and citations appear at the point of relevance in *that* order — not
+in the order the specs were written.
 
-- **Overview**: what this system is and what it does. One paragraph.
-- **Architecture**: components, their responsibilities, how they communicate.
-  Layered diagrams when useful. No library names — describe structure, not stack.
-- **Invariants**: what must be true for the system to work as described.
-  "Every X must have a Y" — architectural contracts, not implementation details.
-- **Component interfaces**: public contracts between components. Conceptual
-  (what passes between them, the semantic contract), not syntactic.
-- **Data model**: key entities and their relationships, semantic meaning.
-- **Design decisions**: explicit choices that shaped the architecture, and why.
-  Not "we used X library" — "we chose stateless handlers because Y."
-- **Out of scope**: what this system explicitly does NOT do or handle.
+Specs are inputs; the design doc is the output. Update it after implementation is
+stable (post code-review, at a release/version boundary), so it describes what
+IS, not what is merely intended.
+
+## Design doc vs. the specs it indexes
+
+| The specs/plans | This design doc |
+|---|---|
+| Per-feature, point-in-time | Whole-system, current |
+| Chronological (dated slices) | Coherent (top-down) |
+| Some are superseded / partial | Cites only the authoritative one |
+| The depth | The map that routes to the depth |
+
+## What belongs
+
+- **Overview** — what the system is and does. One or two paragraphs.
+- **Architecture** — the modules/components, their responsibilities, and **how
+  they interact**. Layered/ASCII diagrams when useful. Describe structure, not stack.
+- **Design decisions** — the general choices that shaped the design, and why
+  ("stateless handlers because Y"), stated as settled facts about the current
+  design — not as a story of what changed.
+- **Component interfaces** — the semantic contracts between components (what
+  passes, what is promised), conceptual not syntactic.
+- **Data model** — key entities, relationships, and their meaning.
+- **Invariants** — what must be true for the design to hold ("every X has a Y").
+- **Design → Spec index** — a routing table from each area of the design to its
+  authoritative spec(s). In design order, NOT chronological. See below.
+- **Out of scope** — what the system explicitly does not do.
+
+**Inline spec citations are a required element, not a nicety.** Every subsection
+whose depth is backed by a spec cites it *at the point of relevance* — see
+Citation convention.
 
 ## What does NOT belong
 
-- Library names and versions (unless the library IS the architecture)
-- Build/deploy configuration
-- Implementation details (how the code achieves something internally)
-- Historical decisions later reversed
-- Future roadmap items
-- Spec/plan artifacts — those live in docs/superpowers/
+- **Chronological narrative or changelog.** No "originally X, later changed to
+  Y", no "in v1 we…", no dated sequence. That history is the specs' job.
+- **Per-spec summaries in spec order.** You synthesize across specs; you do not
+  walk them one by one.
+- **Superseded decisions presented as current.** Resolve supersession first (below).
+- Library names/versions (unless the library IS the architecture).
+- Build/deploy config; internal implementation detail; roadmap/future items.
+
+## Resolve the spec corpus and its supersession (before writing)
+
+Design specs pile up and overlap: a later spec often supersedes or partially
+revises an earlier one. **You must resolve this before writing**, for one
+purpose only: so each subsection cites the **authoritative** spec for that area
+and never routes a reader to a stale one. Supersession is a dedup filter on
+citations — it is NOT a section, and the doc never narrates it as history.
+
+For each spec, classify: **current** (authoritative for its area), **partial**
+(current for part, superseded for the rest), **superseded-by-X**, or
+**historical** (context only, never cited as current). When a later spec
+consolidates earlier ones, cite the later one; you may note "(consolidates X, Y)"
+once, in the index — not as a timeline.
 
 ## Scope detection
 
-**Repo scope** — working inside repos/<name>/:
-- Design doc at docs/design.md within the repo
-- Also check design.md at root and docs/architecture.md; consolidate if multiple exist
+- **Repo** (inside `repos/<name>/`): doc at `docs/design.md`. Check also root
+  `design.md` and `docs/architecture.md`; consolidate if multiple exist.
+- **Sub-system inside a repo** (a large app under `apps/<name>/` with its own
+  spec pile): its own `apps/<name>/docs/design.md`.
+- **Umbrella project**: `vault/Efforts/Projects/<name>/design.md`, context from
+  member repos.
+- **Area**: `vault/Efforts/Areas/<area>/design.md`.
 
-**Umbrella project scope** — explicitly requested or repo is part of named project:
-- Design doc at vault/Efforts/Projects/<name>/design.md
-- Gather context from all member repos
+### Multi-system split
 
-**Area/vault scope** — requested for a vault area:
-- Design doc at vault/Efforts/Areas/<area>/design.md
-
-When ambiguous, ask Alex before proceeding.
+If the scope is really **N systems with distinct lifecycles, dependencies, and
+invariants** sharing one repo (e.g. an offline toolkit + a live web app), do not
+force one flat doc. Give the repo-level doc a thin "what each part is + index"
+role and point to a dedicated `docs/design.md` per sub-system. Detect this during
+discovery (below) and decide before dispatching the writer. When genuinely
+ambiguous, ask.
 
 ## Procedure
 
-### 1. Determine scope and locate existing doc
+### 1. Locate existing doc + inventory the spec corpus
 
 ```bash
-find docs -name "design.md" -o -name "architecture.md" 2>/dev/null
-ls design.md 2>/dev/null
+find . -name "design.md" -o -name "architecture.md" 2>/dev/null
+ls docs/ apps/*/docs/ 2>/dev/null          # where do the spec piles live?
 git log --oneline -- docs/design.md 2>/dev/null | head -5
 ```
 
-### 2. Gather context (read yourself, distill into brief)
+List every spec/plan under the scope (their dates are only a supersession hint,
+not the doc's order).
 
-1. Existing design doc (full, if present)
-2. AGENTS.md — repo orientation and structure
-3. know-how/*.md — operational knowledge
-4. Key structural source files (infer from AGENTS.md)
-5. Last 3–5 specs/plans from docs/superpowers/ — for recent deltas, not to copy
+### 2. Deep architecture discovery (subagent — fan out for large systems)
+
+Dispatch a read-only discovery subagent (Explore or general-purpose). For a large
+or multi-system scope, **fan out one subagent per subsystem** and merge. Do NOT
+skim yourself and skip this — the discovery is what makes the doc coherent rather
+than a spec-by-spec paraphrase.
+
+Give each discovery subagent this contract — it returns a structured brief, it
+does NOT write the doc:
+
+> Explore <SCOPE/subsystem> and return a structured brief:
+> 1. **Module map** — the real components from the code, each one's
+>    responsibility, and **how they interact** (call/data flow). Anchor every
+>    claim in a file you read.
+> 2. **General design decisions** — the settled choices visible in the code and
+>    specs, each with its rationale. Present tense, as facts about the design.
+> 3. **Data model & invariants** — key entities/relationships; what must hold.
+> 4. **Spec → design-area map** — for each spec/plan doc, which area of the design
+>    it specifies, and its supersession status (current / partial / superseded-by
+>    / historical), judged against what the code actually does now.
+> 5. **Multi-system signal** — is this one coherent system, or N systems sharing a
+>    repo? Say which, with the evidence.
+> Read the code and the specs; distill, do not transcribe. Return the brief only.
+
+### 3. Decide scope shape
+
+From the discovery brief, confirm single-doc vs. multi-system split and the
+output path(s).
+
+### 4. Dispatch the writing subagent
+
+Spawn a fresh writer with the merged discovery brief and this contract:
+
+> You are writing (or updating) the design doc for <SCOPE_NAME> at <OUTPUT_PATH>.
+>
+> <CURRENT_DESIGN_DOC> … or "(none — creating from scratch)" </CURRENT_DESIGN_DOC>
+> <DISCOVERY_BRIEF> … module map, decisions, data/invariants, spec map … </DISCOVERY_BRIEF>
+>
+> Write a coherent, **top-down** design doc. Organize by how the design fits
+> together (system → modules → interactions → decisions → data → invariants),
+> NOT by chronology and NOT spec-by-spec.
+>
+> **Required structure:**
+> - Frontmatter: `date_updated`, `scope`, `generated_by: design-doc skill`.
+> - Sections: Overview, Architecture, Design Decisions, Component Interfaces,
+>   Data Model, Invariants, Design → Spec index, Out of Scope. Omit one only if
+>   genuinely empty.
+> - **Inline spec citation is REQUIRED**: in every subsection whose depth is
+>   backed by a spec, cite the authoritative spec at the point of relevance, as
+>   `(detail: [<spec-name>](<relative-path>))`. Cite the current spec only; never
+>   a superseded one.
+> - **Design → Spec index**: a table mapping each area of the design to its
+>   authoritative spec(s), in the SAME top-down order as the doc. A routing table,
+>   not a timeline. You may note "(consolidates X)" once here.
+>
+> **Forbidden:** chronological narrative, changelog, "originally/later/v1"
+> phrasing, walking specs one by one, citing a superseded spec as current, library
+> names in the architecture (unless the library IS the architecture), roadmap.
+>
+> Use ASCII diagrams for architecture/interactions when they help. Describe what
+> IS, present tense. End with: "Written: <word count> words, <N> sections."
+
+### 5. Review and commit
+
+Skim for: chronological/historical phrasing, spec-by-spec ordering, superseded
+specs cited as current, missing inline citations, scope violations (library
+names, future tense). Then:
 
 ```bash
-git log --oneline -30
+git add <output paths>
+git commit -m "docs(design): <compile|update> design doc — <brief reason>"
 ```
 
-### 3. Dispatch synthesis subagent
+Report: scope, path(s), created or updated, word count, and any multi-system
+split you made.
 
-Spawn a fresh writing subagent with the context brief and this prompt:
+## Citation convention
 
----
-You are updating (or creating) the design document for <SCOPE_NAME>.
+- **Inline, at the point of relevance:** `(detail: [solver-por-bloque](../docs/2026-07-13-solver-por-bloque-design.md))`.
+- Cite the **authoritative** spec only. If an area's spec was superseded, cite the
+  superseding one.
+- Order follows the **design**, never the specs' dates.
+- The **Design → Spec index** collects the routing in one place, in design order.
 
-<CURRENT_DESIGN_DOC>
-[existing doc content, or "(none — creating from scratch)"]
-</CURRENT_DESIGN_DOC>
+## Red flags — STOP
 
-<CONTEXT_BRIEF>
-[your synthesized summary of AGENTS.md, know-how, recent changes, architecture]
-</CONTEXT_BRIEF>
-
-Write the design document to <OUTPUT_PATH>.
-
-Rules:
-- Describe what EXISTS and is true now. Not planned, not intended.
-- Update outdated sections, preserve accurate ones, fill gaps.
-- Do NOT include: library names/versions, build config, implementation details,
-  reversed decisions, roadmap items.
-- Use ASCII diagrams for architecture when helpful.
-- Frontmatter: date_updated, scope, generated_by: design-doc skill
-- Sections: Overview, Architecture, Invariants, Component Interfaces,
-  Data Model, Design Decisions, Out of Scope. Omit if genuinely empty.
-- End with: "Written: <word count> words, <N> sections."
----
-
-### 4. Review and commit
-
-Skim for scope violations (library names in architecture, future tense, planning language).
-
-```bash
-git add docs/design.md
-git commit -m "docs(design): update design doc — <brief reason>"
-```
-
-Report to Alex: scope, file path, created or updated, word count.
+- Writing "originally", "was later changed", "in v1", or any dated sequence → that
+  is history; it belongs in the specs, not here.
+- Ordering sections or citations by when specs were written.
+- Summarizing each spec in turn instead of synthesizing across them.
+- Citing a spec you know is superseded as if it were current.
+- Skipping the discovery subagent and paraphrasing the specs directly.
 
 ## Invocation from design-thinking
 
-When invoked from the design-thinking test phase (post code-review, at release
-boundary), run automatically. Focus context brief on the delta from the cycle
-just completed.
+When invoked from the design-thinking test phase (post code-review, at a release
+boundary), run automatically; focus discovery on the delta from the cycle just
+completed, but still produce a coherent whole (not a delta log).
 
-## Idempotency guarantee
+## Idempotency
 
-Running this skill twice produces a better or equivalent doc, never worse. The
-subagent sees the existing doc as input and brings it to current state. If the
-existing doc is already accurate, the output should be nearly identical.
+Running this twice produces a better or equivalent doc, never worse. The writer
+sees the existing doc as input and brings it to current state; if it is already
+coherent and accurate, the output is nearly identical.
